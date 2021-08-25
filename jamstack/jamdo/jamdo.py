@@ -18,7 +18,7 @@ def get_raw_url(file_path, url):
 
 def get_download_links(template):
     api = requests.get(
-        "https://api.github.com/repos/Jalkhov/jamstack-templates/git/trees/main?recursive=1").text
+        "https://api.github.com/repos/jamstackpy/jamstack-templates/git/trees/main?recursive=1").text
     files = json.loads(api)
 
     output = []
