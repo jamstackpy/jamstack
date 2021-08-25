@@ -28,7 +28,7 @@ Jamstack has templates available courtesy of [html5up](https://html5up.net).
 | Template                                   | Command   | Tutorial                                                     |
 | ------------------------------------------ | --------- | ------------------------------------------------------------ |
 | [Massively](https://html5up.net/massively) | massively |                                                              |
-| [Phantom](https://html5up.net/phantom)     | phantom   | [**HERE**](https://github.com/Abdur-rahmaanJ/jamstack/wiki/Phantom-template) |
+| [Phantom](https://html5up.net/phantom)     | phantom   | [**HERE**](https://github.com/jamstackpy/jamstack/wiki/Phantom-template) |
 
 The syntax is as follows:
 
