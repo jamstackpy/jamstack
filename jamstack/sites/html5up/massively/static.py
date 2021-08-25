@@ -6,6 +6,7 @@ from os.path import join
 import settings
 from flask import Flask
 from jamstack.api.template import base_context, generate
+from jamstack.jamdo.jamdo import download
 from livereload import Server
 
 context = base_context()
@@ -43,6 +44,8 @@ def main(args):
         # server.watch('style.less', shell('lessc style.less', output='style.css'))
 
         server.serve()
+    elif len(args) > 1 and args[1] == '--jamdo':
+        download('html5up/massively')
     else:
         gen()
 
