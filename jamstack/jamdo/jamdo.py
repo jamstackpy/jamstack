@@ -1,6 +1,5 @@
 import json
 import os
-import pprint
 import urllib.request
 
 import requests
