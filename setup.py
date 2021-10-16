@@ -34,7 +34,7 @@ setup(
     description="Jamstack in Python",  # Optional
     long_description=long_description,  # Optional
     long_description_content_type="text/markdown",  # Optional (see note above)
-    url="https://github.com/Abdur-RahmaanJ/jamstack",  # Optional
+    url="https://github.com/jamstackpy/jamstack",  # Optional
     author="Abdur-Rahmaan Janhangeer",  # Optional
     author_email="arj.python@gmail.com",  # Optional
     # Classifiers help users find your project by categorizing it.
@@ -80,8 +80,8 @@ setup(
     .read()
     .split("\n"),  # Optional
     project_urls={  # Optional
-        "Bug Reports": "https://github.com/Abdur-RahmaanJ/jamstack/issues",
-        "Source": "https://github.com/Abdur-RahmaanJ/jamstack/",
+        "Bug Reports": "https://github.com/jamstackpy/jamstack/issues",
+        "Source": "https://github.com/jamstackpy/jamstack",
     },
     entry_points={"console_scripts": ["jamstack=jamstack.__main__:main"]},
 )
