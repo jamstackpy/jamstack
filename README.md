@@ -42,7 +42,7 @@ Use the `--existing` flag if you want the project to be created in an existing f
 jamstack t massively myproject --existing
 ```
 
-By default, projects are created without the assets (stylesheets, images, etc...) to download them, you must pass the `--jamdo` option to the `--static.py` file of the respective project.
+By default, projects are created without the assets (stylesheets, images, etc...) to download them, you must pass the `--jamdo` option to the `static.py` file of the respective project.
 
 ## Build
 
