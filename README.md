@@ -19,8 +19,6 @@ python -m pip install jamstack
 jamstack plain <foldername>
 ```
 
-`jamstack plain myproject`
-
 ## Templates
 
 Jamstack has templates available courtesy of [html5up](https://html5up.net).
