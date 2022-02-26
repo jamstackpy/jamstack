@@ -25,10 +25,10 @@ jamstack plain <foldername>
 
 Jamstack has templates available courtesy of [html5up](https://html5up.net).
 
-| Template                                   | Command   | Tutorial                                                     |
-| ------------------------------------------ | --------- | ------------------------------------------------------------ |
-| [Massively](https://html5up.net/massively) | massively |                                                              |
-| [Phantom](https://html5up.net/phantom)     | phantom   | [**HERE**](https://github.com/jamstackpy/jamstack/wiki/Phantom-template) |
+| Template                                   | Command           | Tutorial                                                     |
+| ------------------------------------------ | ----------------- | ------------------------------------------------------------ |
+| [Massively](https://html5up.net/massively) | html5up/massively |                                                              |
+| [Phantom](https://html5up.net/phantom)     | html5up/phantom   | [**HERE**](https://github.com/jamstackpy/jamstack/wiki/Phantom-template) |
 
 The syntax is as follows:
 
@@ -39,7 +39,7 @@ jamstack t <template> <foldername>
 Use the `--existing` flag if you want the project to be created in an existing folder
 
 ```bash
-jamstack t massively myproject --existing
+jamstack t html5up/massively myproject --existing
 ```
 
 By default, projects are created without the assets (stylesheets, images, etc...) to download them, you must pass the `--jamdo` option to the `static.py` file of the respective project.
