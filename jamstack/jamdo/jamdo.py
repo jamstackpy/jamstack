@@ -5,6 +5,9 @@ import urllib.request
 import requests
 from tqdm import tqdm
 
+templates_url = ("https://api.github.com/repos/jamstackpy/"
+                 "jamstack-templates/git/trees/main?recursive=1")
+
 
 def get_raw_url(file_path, url):
     tmp_url = url.replace(
@@ -16,11 +19,9 @@ def get_raw_url(file_path, url):
 
 
 def get_download_links(template):
-    api = requests.get(
-        "https://api.github.com/repos/jamstackpy/\
-        jamstack-templates/git/trees/main?recursive=1").text
+    api = requests.get(templates_url).text
+    print(templates_url)
     files = json.loads(api)
-
     output = []
     location = dict()
     for (k, i) in enumerate(files['tree']):
