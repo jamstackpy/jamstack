@@ -19,7 +19,12 @@ def base_context():
     return copy.deepcopy(builtins_dict)
 
 
-def generate(file_in_templates, out_path, template_dir='templates', assets_path_append='', **kwargs):
+def generate(
+        file_in_templates,
+        out_path,
+        template_dir='templates',
+        assets_path_append='',
+        **kwargs):
     """
     Generates necessary file(s)
     :param file_in_templates: template to work with
@@ -36,7 +41,10 @@ def generate(file_in_templates, out_path, template_dir='templates', assets_path_
 
     build_id = str(uuid.uuid4())  # to be used
 
-    output = template.render(kwargs, year=datetime.datetime.now().year,
-                             build_id=build_id, assets_path_append=assets_path_append)
+    output = template.render(
+        kwargs,
+        year=datetime.datetime.now().year,
+        build_id=build_id,
+        assets_path_append=assets_path_append)
     with open(out_path, 'w+', encoding="utf8") as f:
         f.write(output)

@@ -17,7 +17,8 @@ def get_raw_url(file_path, url):
 
 def get_download_links(template):
     api = requests.get(
-        "https://api.github.com/repos/jamstackpy/jamstack-templates/git/trees/main?recursive=1").text
+        "https://api.github.com/repos/jamstackpy/\
+        jamstack-templates/git/trees/main?recursive=1").text
     files = json.loads(api)
 
     output = []
@@ -69,5 +70,3 @@ def download(template, target_folder='*', recursive=True):
                 urllib.request.urlretrieve(i[1], '.' + '/' + ndir)
             pbar.update(1)
 
-
-# download('html5up/massively')
