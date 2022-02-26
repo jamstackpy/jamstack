@@ -6,7 +6,7 @@ from os.path import join
 import settings
 from flask import Flask
 from jamstack.api.template import base_context, generate
-from jamstack.jamdo.jamdo import download
+from jamstack.jamdo.jamdo import download as download_template
 from livereload import Server
 
 context = base_context()
@@ -45,7 +45,7 @@ def main(args):
 
         server.serve()
     elif len(args) > 1 and args[1] == '--jamdo':
-        download('html5up/massively')
+        download_template('html5up/massively')
     else:
         gen()
 

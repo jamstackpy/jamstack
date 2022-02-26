@@ -69,4 +69,3 @@ def download(template, target_folder='*', recursive=True):
                 mkdirs('.' + '/' + os.path.dirname(ndir))
                 urllib.request.urlretrieve(i[1], '.' + '/' + ndir)
             pbar.update(1)
-
