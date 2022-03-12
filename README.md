@@ -2,10 +2,9 @@
   <img alt="Jamstack logo" src="https://i.imgur.com/sXUAdYJ.png" height="217" />
 </div>
 
-
 ![](https://img.shields.io/pypi/v/jamstack)
 
-Also known as Jamstackpy
+Also known as Jamstackpy, is a tool that allows you to create static websites using the power of **Python** hand in hand with the [Flask](https://github.com/pallets/flask) library. Its operation is based on templates which are rendered with the powerful Jinja engine generating your website with all its dependencies.
 
 ## Installation
 
