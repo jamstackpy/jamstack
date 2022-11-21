@@ -15,7 +15,7 @@ python -m pip install jamstack
 ## Create basic project
 
 ```bash
-jamstack plain <foldername>
+jamstack plain <foldername> # or jamstack plain . --existing
 ```
 
 ## Templates
