@@ -3,10 +3,8 @@ import shutil
 import logging
 import uuid
 
-logging.basicConfig(filename='example.log', level=logging.DEBUG)
 
-
-def trycopy(source, dest, verbose=False):
+def trycopytree(source, dest, dirs_exist_ok):
     """
     Copy a file or directory from source to dest.
 
@@ -16,17 +14,17 @@ def trycopy(source, dest, verbose=False):
         source file or directory path
     dest: str
         destination file or directory path
-    verbose: bool, optional
-        If True, print debug information. Default is False.
-
+    dirs_exist_ok:
+        especifies if the project folder already exist
     Returns
     -------
     None
     """
     try:
-        shutil.copy2(source, dest)
-        if verbose:
-            print("done copying {} to {}".format(source, dest))
+        shutil.copytree(source, dest, dirs_exist_ok=dirs_exist_ok)
+        print('Project created successfully! :)')
+    except FileExistsError:
+        print('Project folder already exist! Use --existing if you want to override it.')
     except Exception as e:
         logging.exception(e)
 
