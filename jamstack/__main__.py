@@ -3,7 +3,7 @@ from pathlib import Path
 
 import click
 
-from jamstack.api.file import trycopy
+from jamstack.api.file import trycopytree
 
 package_folder = Path(__file__).parent.absolute()
 sites_path = os.path.join(package_folder, 'sites')
@@ -19,9 +19,11 @@ def cli():
 @click.option('--existing/--not-existing', default=False)
 def plain(project_name, existing):
     path = '.'
-    trycopy(
+
+    trycopytree(
         os.path.join(sites_path, 'plain'),
-        os.path.join(path, project_name)
+        os.path.join(path, project_name),
+        existing
     )
 
 
@@ -32,9 +34,11 @@ def plain(project_name, existing):
 def t(template, project_name, existing):
     path = '.'
     namespace, project = template.split('/')
-    trycopy(
+
+    trycopytree(
         os.path.join(sites_path, namespace, project),
-        os.path.join(path, project_name)
+        os.path.join(path, project_name),
+        existing
     )
 
 
