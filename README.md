@@ -72,4 +72,3 @@ Your site will be generated in the **dist/** folder.
 # TODO
 
 - [ ] Replace `python static.py --serve/--jamdo` by something like `jamstack --serve/--jamdo`
--
