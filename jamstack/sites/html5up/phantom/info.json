@@ -64,8 +64,8 @@
         }
     },
     "metatags": {
-        "description": "Webpage description",
-        "keywords": "jamstack, python, html5up",
+        "description": "A modern and responsive Jamstack website built with Python",
+        "keywords": "Python, Jamstack, website, responsive, modern",
         "author": "Jhon Doe",
         "copyright": "Jhon Doe"
     },

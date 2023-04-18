@@ -1,8 +1,8 @@
 {
-	"head":{
-		"description": "Basic jamstack site",
-		"keywords": "python, jamstack",
-		"author": "R Ja",
-		"theme-color": "#ffb74d"
-	}
+    "head": {
+        "description": "A modern and responsive Jamstack website built with Python",
+        "keywords": "Python, Jamstack, website, responsive, modern",
+        "author": "Jhon Doe",
+        "theme-color": "#4fc3f7"
+    }
 }

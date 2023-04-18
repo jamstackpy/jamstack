@@ -1,13 +1,18 @@
 import builtins
 import copy
 import datetime
+import json
 import string
-import uuid
 
 from jinja2 import Environment, FileSystemLoader
 
 
-def base_context():
+def load_json(file):
+    with open(file, 'r') as f:
+        return json.load(f)
+
+
+def get_builtins_context() -> dict:
     """
     Get a dictionary of built-in functions and variables.
 
@@ -16,48 +21,50 @@ def base_context():
     dict
         Dictionary of built-in functions and variables.
     """
-    defaults = [_ for _ in dir(builtins)
-                if _[0] in string.ascii_lowercase and
-                _ not in ['copyright', 'credits']
-                ]
-    attrs = [getattr(builtins, _) for _ in defaults]
-
-    builtins_dict = dict(zip(defaults, attrs))
+    builtins_dict = {}
+    for name in dir(builtins):
+        if name[0] in string.ascii_lowercase and name not in ['copyright', 'credits']:
+            value = getattr(builtins, name)
+            builtins_dict[name] = value
     return copy.deepcopy(builtins_dict)
 
 
-def generate(file_in_templates, out_path, template_dir='templates', assets_path_append='', **kwargs):
+def generate(template_name: str, output_path: str, template_dir: str = 'templates', assets_path_append: str = '',
+             context: dict = None) -> None:
     """
     Generates necessary file(s) from a Jinja2 template.
 
     Parameters
     ----------
-    file_in_templates: str
+    template_name: str
         Template file to work with.
-    out_path: str
+    output_path: str
         Output path to save the generated file to.
     template_dir: str, optional
         Templates directory. Default is 'templates'.
     assets_path_append: str, optional
         Path to append to assets. Default is ''.
-    kwargs: dict
-        Variables to pass to the template.
+    context: dict, optional
+        Variables to pass to the template. Additional context variables can be provided using this parameter.
 
     Returns
     -------
     None
     """
+    if context is None:
+        context = {}
+
     file_loader = FileSystemLoader(template_dir)
     env = Environment(loader=file_loader)
-    template = env.get_template(file_in_templates)
+    template = env.get_template(template_name)
 
-    build_id = str(uuid.uuid4())
+    context.update({
+        'year': datetime.datetime.now().year,
+        'assets_path_append': assets_path_append,
+        **get_builtins_context(),
+    })
 
-    output = template.render(
-        kwargs,
-        year=datetime.datetime.now().year,
-        build_id=build_id,
-        assets_path_append=assets_path_append)
+    output = template.render(context)
 
-    with open(out_path, 'w+', encoding="utf8") as f:
+    with open(output_path, 'w+', encoding="utf8") as f:
         f.write(output)
