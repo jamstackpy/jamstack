@@ -32,7 +32,7 @@ Jamstack has templates available courtesy of [html5up](https://html5up.net).
 The syntax is as follows:
 
 ```bash
-jamstack t <template> <foldername>
+jamstack t <template_command> <project_folder_name>
 ```
 
 Use the `--existing` flag if you want the project to be created in an existing folder
@@ -72,3 +72,4 @@ Your site will be generated in the **dist/** folder.
 # TODO
 
 - [ ] Replace `python static.py --serve/--jamdo` by something like `jamstack --serve/--jamdo`
+- [ ] Remove Flask as Main requirement and just use Jinja
