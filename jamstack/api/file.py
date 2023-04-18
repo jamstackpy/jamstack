@@ -1,6 +1,6 @@
+import logging
 import os
 import shutil
-import logging
 import uuid
 
 
@@ -22,6 +22,7 @@ def trycopytree(source, dest, dirs_exist_ok):
     """
     try:
         shutil.copytree(source, dest, dirs_exist_ok=dirs_exist_ok)
+        os.mkdir(os.path.join(dest, 'dist'))  # Maybe place in static.py?
         print('Project created successfully! :)')
     except FileExistsError:
         print('Project folder already exist! Use --existing if you want to override it.')
@@ -153,7 +154,6 @@ def delete_file(path):
         logging.info("File deleted: {}".format(path))
     except Exception as e:
         logging.exception(e)
-
 
 # def unique_sec_filename(filename):
 #     return unique_filename(secure_filename(filename))
