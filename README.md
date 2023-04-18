@@ -68,3 +68,8 @@ Your site will be generated in the **dist/** folder.
 - [DeliciousPy Telegram Channel](https://deliciouspy.github.io/)
 - [The Flask Community Work Group](https://flaskcwg.github.io/)
 - [Abdur-Rahmaan Janhangeer](https://compileralchemy.github.io/)
+
+# TODO
+
+- [ ] Replace `python static.py --serve/--jamdo` by something like `jamstack --serve/--jamdo`
+-
