@@ -1,9 +1,9 @@
 import os
 import sys
 
-from jamstack import __version__
 from setuptools import setup
 
+from jamstack import __version__
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -14,9 +14,13 @@ if sys.argv[-1] == "publish":
 
 with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
+
+with open(os.path.join(here, "requirements.txt"), encoding="utf-8") as f:
+    install_requires = f.read().split("\n")
+
 setup(
     name="jamstack",
-    version=__version__,
+    version=f'{__version__}',
     description="Jamstack in Python",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -24,7 +28,7 @@ setup(
     author="Abdur-Rahmaan Janhangeer",
     author_email="arj.python@gmail.com",
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.6",
@@ -32,15 +36,11 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-    keywords="jamstack static",
+    keywords="jamstack static website jinja2",
     packages=["jamstack"],
     include_package_data=True,
     python_requires=">=3.6",
-    install_requires=open(
-        os.path.join(here, "requirements.txt"), encoding="utf-8"
-    )
-    .read()
-    .split("\n"),
+    install_requires=install_requires,
     project_urls={
         "Bug Reports": "https://github.com/jamstackpy/jamstack/issues",
         "Source": "https://github.com/jamstackpy/jamstack",

@@ -1,54 +1,33 @@
+import logging
 import os
 import shutil
 import uuid
 
-# from werkzeug.utils import secure_filename
 
-
-def trycopytree(source, dest, verbose=False, dirs_exist_ok=False):
+def trycopytree(source, dest, dirs_exist_ok):
     """
-    Recursive copy of folder
+    Copy a file or directory from source to dest.
 
     Parameters
     ----------
     source: str
-        source folder path
+        source file or directory path
     dest: str
-        destination folder path
-
+        destination file or directory path
+    dirs_exist_ok:
+        especifies if the project folder already exist
     Returns
     -------
     None
     """
     try:
         shutil.copytree(source, dest, dirs_exist_ok=dirs_exist_ok)
-        if verbose:
-            print("done copying {} to {}".format(source, dest))
+        os.mkdir(os.path.join(dest, 'dist'))  # Maybe place in static.py?
+        print('Project created successfully! :)')
+    except FileExistsError:
+        print('Project folder already exist! Use --existing if you want to override it.')
     except Exception as e:
-        print(e)
-
-
-def trycopy(source, dest, verbose=False):
-    """
-    Non-ecursive copy of folder
-
-    Parameters
-    ----------
-    source: str
-        source folder path
-    dest: str
-        destination folder path
-
-    Returns
-    -------
-    None
-    """
-    try:
-        shutil.copy(source, dest)
-        if verbose:
-            print("done copying {} to {}".format(source, dest))
-    except Exception as e:
-        print(e)
+        logging.exception(e)
 
 
 def trymkdir(path, verbose=False):
@@ -59,6 +38,8 @@ def trymkdir(path, verbose=False):
     ----------
     path: str
         path with folder already in
+    verbose: bool, optional
+        If True, print debug information. Default is False.
 
     Returns
     -------
@@ -69,7 +50,7 @@ def trymkdir(path, verbose=False):
         if verbose:
             print("created dir at", path)
     except Exception as e:
-        print(e)
+        logging.exception(e)
 
 
 def trymkfile(path, content, verbose=False):
@@ -82,20 +63,22 @@ def trymkfile(path, content, verbose=False):
         path to create file with filename included
     content: str
         file content
+    verbose: bool, optional
+        If True, print debug information. Default is False.
 
     Returns
     -------
     None
     """
     try:
-        with open(path, "w+") as f:
+        with open(path, "x") as f:
             f.write(content)
         if verbose:
             print("file created at {}".format(path))
             print("with content:")
             print(content)
     except Exception as e:
-        print(e)
+        logging.exception(e)
 
 
 def absdiroffile(filepath):
@@ -117,19 +100,60 @@ def absdiroffile(filepath):
 
 
 def get_folders(path):
+    """
+    Get a list of directories in the given path.
+
+    Parameters
+    ----------
+    path: str
+        Path to search for directories.
+
+    Returns
+    -------
+    list
+        List of directories in the given path.
+    """
     dirs = [d for d in os.listdir(
         path) if os.path.isdir(os.path.join(path, d))]
     return dirs
 
 
 def unique_filename(fname):
+    """
+    Generate a unique filename by prepending a UUID to the given filename.
+
+    Parameters
+    ----------
+    fname: str
+        Original filename.
+
+    Returns
+    -------
+    str
+        Unique filename with prepended UUID.
+    """
     prepended = str(uuid.uuid4()).replace("-", "_")[:10]
     return "{}_{}".format(prepended, fname)
 
 
 def delete_file(path):
-    os.remove(path)
+    """
+    Delete the file at the given path.
 
+    Parameters
+    ----------
+    path: str
+        Path of the file to delete.
+
+    Returns
+    -------
+    None
+    """
+    try:
+        os.remove(path)
+        logging.info("File deleted: {}".format(path))
+    except Exception as e:
+        logging.exception(e)
 
 # def unique_sec_filename(filename):
 #     return unique_filename(secure_filename(filename))

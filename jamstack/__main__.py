@@ -2,51 +2,43 @@ import os
 from pathlib import Path
 
 import click
+
 from jamstack.api.file import trycopytree
 
 package_folder = Path(__file__).parent.absolute()
 sites_path = os.path.join(package_folder, 'sites')
 
 
-@click.group(help="<Jamstack cli/>")
+@click.group(help="Jamstack command line interface")
 def cli():
     pass
 
 
-@click.command(help="<Empty, plain repo />")
+@click.command(help="Create an empty, plain repository")
 @click.argument('project_name')
 @click.option('--existing/--not-existing', default=False)
 def plain(project_name, existing):
     path = '.'
 
-    dirs_exist_ok = False
-    if existing is True:
-        dirs_exist_ok = True
     trycopytree(
         os.path.join(sites_path, 'plain'),
         os.path.join(path, project_name),
-        dirs_exist_ok=dirs_exist_ok
+        existing
     )
 
 
-@click.command(help="<Repo by templates />")
+@click.command(help="Create a repository from a template")
 @click.argument('template')
 @click.argument('project_name')
 @click.option('--existing/--not-existing', default=False)
 def t(template, project_name, existing):
     path = '.'
-
-    namespace = template.split('/')[0]
-    project = template.split('/')[1]
-
-    dirs_exist_ok = False
-    if existing is True:
-        dirs_exist_ok = True
+    namespace, project = template.split('/')
 
     trycopytree(
         os.path.join(sites_path, namespace, project),
         os.path.join(path, project_name),
-        dirs_exist_ok=dirs_exist_ok
+        existing
     )
 
 

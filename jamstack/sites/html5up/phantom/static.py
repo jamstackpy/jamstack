@@ -1,65 +1,50 @@
-# https://github.com/pymug/website-AV19-AV20
-
-import sys
+import argparse
 from os.path import join
 
-import settings
-from flask import Flask
-from jamstack.api.template import base_context, generate
-from jamstack.jamdo.jamdo import download as download_template
 from livereload import Server
 
-context = base_context()
-context.update({
-    "info": settings.info,
-    "posts": settings.posts
-})
+import settings
+from jamstack.api.template import generate
+from jamstack.jamdo.jamdo import download as download_template
 
 
-def main(args):
-    def gen():
-        generate('index.html', join(
-            settings.OUTPUT_FOLDER, 'index.html'), **context)
+def generate_site():
+    extra_context = {"info": settings.info,
+                     "posts": settings.posts}
+    generate('index.html', join(settings.OUTPUT_FOLDER, 'index.html'), context=extra_context)
 
-        # Generate pages based in sidebar items
-        sidebar = settings.info['sidebar']
-        for item in sidebar:
-            page = sidebar[item]['page']
-            generate(page, join(settings.OUTPUT_FOLDER, page), **context)
+    # Generate pages based on sidebar items
+    for item in settings.info['sidebar'].values():
+        page = item['page']
+        generate(page, join(settings.OUTPUT_FOLDER, page), context=extra_context)
 
-        # Generate posts pages
-        posts = settings.posts['posts']
-        for post in posts:
-            page = posts[post]['page']
-            generate(page, join(
-                settings.OUTPUT_FOLDER, page), **context)
+    # Generate posts pages
+    for post in settings.posts['posts'].values():
+        page = post['page']
+        generate(page, join(settings.OUTPUT_FOLDER, page), context=extra_context)
 
-    if len(args) > 1 and args[1] == '--server':
-        app = Flask(__name__)
 
-        # remember to use DEBUG mode for templates auto reload
-        # https://github.com/lepture/python-livereload/issues/144
-        app.debug = True
-        server = Server(app.wsgi_app)
-
-        # run a shell command
-        # server.watch('.', 'make static')
-
-        # run a function
-
-        server.watch('.', gen, delay=5)
-        server.watch('*.py')
-
-        # output stdout into a file
-        # server.watch('style.less', shell('lessc style.less',\
-        # output='style.css'))
-
-        server.serve()
-    elif len(args) > 1 and args[1] == '--jamdo':
-        download_template('html5up/phantom')
-    else:
-        gen()
+def serve_files(port, watch):
+    server = Server()
+    for x in watch.split('|'):
+        server.watch(x, func=generate_site)
+    try:
+        server.serve(root=settings.OUTPUT_FOLDER, port=port)
+    except KeyboardInterrupt:
+        print("Shutting down...")
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    parser = argparse.ArgumentParser(description='Project manager.')
+    parser.add_argument('--serve', action='store_true', help='Serve files for livewatch')
+    parser.add_argument('--jamdo', action='store_true', help='Download template assets')
+    parser.add_argument('--watch', type=str, default='*.py|templates|templates/sections', help='Files/Folders to watch')
+    parser.add_argument('--port', type=int, default=8000, help='Port to serve')
+    args = parser.parse_args()
+
+    if args.serve:
+        serve_files(args.port, args.watch)
+    elif args.jamdo:
+        download_template('html5up/phantom')
+    else:
+        generate_site()
