@@ -50,3 +50,23 @@ def test_init_then_build(tmp_path: Path, monkeypatch) -> None:
 
     assert result.exit_code == 0, result.output
     assert (tmp_path / "site" / "dist" / "index.html").is_file()
+
+
+def test_themes_lists_bundled_themes(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+
+    result = CliRunner().invoke(main, ["themes"])
+
+    assert result.exit_code == 0, result.output
+    assert "blog" in result.output
+    assert "minimal" in result.output
+
+
+def test_init_with_blog_theme_scaffolds_post(tmp_path: Path) -> None:
+    root = tmp_path / "myblog"
+
+    result = CliRunner().invoke(main, ["init", str(root), "--theme", "blog"])
+
+    assert result.exit_code == 0, result.output
+    assert (root / "content" / "posts" / "hello-world.md").is_file()
+    assert 'name = "blog"' in (root / "site.toml").read_text(encoding="utf-8")

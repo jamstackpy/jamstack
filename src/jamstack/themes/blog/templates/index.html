@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if page.content %}
+    <div class="intro">{{ page.content }}</div>
+  {% endif %}
+  {% set posts = pages | rejectattr("url", "equalto", "/") | selectattr("date") | list %}
+  {% if posts %}
+    <ol class="post-list">
+      {% for item in posts %}
+        <li>
+          <a class="post-title" href="{{ item.url }}">{{ item.title }}</a>
+          <time datetime="{{ item.date.isoformat() }}">{{ item.date.strftime("%d-%m-%Y") }}</time>
+          {% if item.meta.get("summary") %}<p class="summary">{{ item.meta.get("summary") }}</p>{% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="empty">No posts yet. Create one in <code>content/posts/</code>.</p>
+  {% endif %}
+{% endblock %}

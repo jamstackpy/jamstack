@@ -1,4 +1,5 @@
 import json
+import shutil
 from pathlib import Path
 
 import click
@@ -6,7 +7,7 @@ import click
 from jamstack.__about__ import __version__
 from jamstack.builder import build as build_site
 from jamstack.config import JamstackError, load_config
-from jamstack.theme import resolve_theme
+from jamstack.theme import discover_themes, resolve_theme
 
 INDEX_PAGE = """+++
 title = "Welcome"
@@ -36,7 +37,7 @@ def init(path: Path, theme: str, force: bool) -> None:
     if path.is_dir() and any(path.iterdir()) and not force:
         raise click.ClickException(f"{path} is not empty. Use --force to write anyway.")
 
-    resolve_theme(theme, path)
+    selected = resolve_theme(theme, path)
 
     site_toml = f"""[site]
 title = {json.dumps(path.resolve().name.replace("-", " ").replace("_", " ").title())}
@@ -51,6 +52,9 @@ output = "dist"
 name = {json.dumps(theme)}
 """
 
+    if selected.scaffold:
+        shutil.copytree(selected.scaffold, path, dirs_exist_ok=True)
+
     files = {
         "site.toml": site_toml,
         "content/index.md": INDEX_PAGE,
@@ -61,7 +65,7 @@ name = {json.dumps(theme)}
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(content, encoding="utf-8")
 
-    click.echo(f"Created site in {path}")
+    click.echo(f"Created site in {path} using the {theme!r} theme")
     click.echo("Next steps:")
     click.echo(f"  cd {path}")
     click.echo("  jamstack build")
@@ -79,3 +83,17 @@ def build(clean: bool, drafts: bool) -> None:
         raise click.ClickException(str(error)) from error
 
     click.echo(f"Built {result.page_count} page(s) into {result.output}")
+
+
+@main.command("themes")
+def list_themes() -> None:
+    """List the available themes."""
+    try:
+        themes = discover_themes(Path.cwd())
+    except JamstackError as error:
+        raise click.ClickException(str(error)) from error
+
+    width = max(len(theme.name) for theme in themes)
+    for theme in themes:
+        origin = "bundled" if theme.bundled else "local"
+        click.echo(f"{theme.name:<{width}}  {origin:<7}  {theme.description}")

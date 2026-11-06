@@ -1,13 +1,20 @@
 from pathlib import Path
 
+import pytest
+
 from jamstack.builder import build
 from jamstack.config import load_config
+from jamstack.theme import discover_themes
+
+BUNDLED_THEMES = [theme.name for theme in discover_themes(Path("/nonexistent"))]
 
 
-def make_site(root: Path) -> None:
+def make_site(root: Path, theme: str = "minimal") -> None:
     (root / "content").mkdir()
     (root / "static").mkdir()
-    (root / "site.toml").write_text('[site]\ntitle = "Test Site"\n', encoding="utf-8")
+    (root / "site.toml").write_text(
+        f'[site]\ntitle = "Test Site"\n\n[theme]\nname = "{theme}"\n', encoding="utf-8"
+    )
     (root / "content" / "index.md").write_text(
         '+++\ntitle = "Home"\n+++\n\nWelcome\n', encoding="utf-8"
     )
@@ -76,3 +83,32 @@ def test_drafts_are_excluded_by_default(tmp_path: Path) -> None:
 
     build(load_config(tmp_path), drafts=True)
     assert (tmp_path / "dist" / "draft" / "index.html").is_file()
+
+
+@pytest.mark.parametrize("theme_name", BUNDLED_THEMES)
+def test_every_bundled_theme_builds(tmp_path: Path, theme_name: str) -> None:
+    make_site(tmp_path, theme=theme_name)
+
+    result = build(load_config(tmp_path))
+
+    assert result.page_count == 2
+    assert (tmp_path / "dist" / "index.html").is_file()
+    assert (tmp_path / "dist" / "about" / "index.html").is_file()
+
+
+def test_blog_theme_lists_only_dated_posts(tmp_path: Path) -> None:
+    make_site(tmp_path, theme="blog")
+    (tmp_path / "content" / "post.md").write_text(
+        '+++\ntitle = "First Post"\ndate = 2026-01-02\ntemplate = "post"\n'
+        'summary = "A summary"\n+++\n\nBody text\n',
+        encoding="utf-8",
+    )
+
+    build(load_config(tmp_path))
+
+    index = (tmp_path / "dist" / "index.html").read_text(encoding="utf-8")
+    assert "First Post" in index
+    assert 'href="/post/"' in index
+    assert "A summary" in index
+    assert "About" not in index
+    assert (tmp_path / "dist" / "post" / "index.html").is_file()
