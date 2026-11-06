@@ -107,7 +107,9 @@ def parse_title(meta: dict[str, Any], stem: str) -> str:
 
 def parse_template(meta: dict[str, Any], stem: str) -> str:
     template = str(meta.get("template", "")).strip()
-    return template or ("index" if stem == "index" else "page")
+    if not template:
+        template = "index" if stem == "index" else "page"
+    return template if Path(template).suffix else f"{template}.html"
 
 
 def parse_date(value: Any, source: Path) -> date | None:

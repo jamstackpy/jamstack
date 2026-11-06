@@ -21,7 +21,7 @@ def test_parses_front_matter_and_url(tmp_path: Path) -> None:
     assert page.date == date(2026, 1, 2)
     assert page.url == "/about/"
     assert page.output.as_posix() == "about/index.html"
-    assert page.template == "page"
+    assert page.template == "page.html"
 
 
 def test_index_page_uses_root_url_and_index_template(tmp_path: Path) -> None:
@@ -31,7 +31,7 @@ def test_index_page_uses_root_url_and_index_template(tmp_path: Path) -> None:
 
     assert page.url == "/"
     assert page.output.as_posix() == "index.html"
-    assert page.template == "index"
+    assert page.template == "index.html"
 
 
 def test_nested_pages_and_drafts(tmp_path: Path) -> None:

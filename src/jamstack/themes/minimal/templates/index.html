@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  {{ page.content }}
+  {% set listed = pages | rejectattr("url", "equalto", "/") | list %}
+  {% if listed %}
+    <ul class="page-list">
+      {% for item in listed %}
+        <li>
+          <a href="{{ item.url }}">{{ item.title }}</a>
+          {% if item.date %}<time datetime="{{ item.date.isoformat() }}">{{ item.date.strftime("%d-%m-%Y") }}</time>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
