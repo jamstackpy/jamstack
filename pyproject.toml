@@ -67,3 +67,9 @@ addopts = "-ra --strict-markers"
 
 [tool.coverage.run]
 source = ["jamstack"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+version_files = ["src/jamstack/__about__.py"]
+update_changelog_on_bump = true
