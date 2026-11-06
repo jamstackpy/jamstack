@@ -1,5 +1,0 @@
-click==7.1.2
-Flask==1.1.2
-requests==2.26.0
-tqdm==4.62.3
-livereload==2.5.1
