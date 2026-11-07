@@ -1,0 +1,59 @@
+name: Bug report
+description: Something is not working as documented.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please reduce the problem to the smallest site
+        that shows it; that is usually what makes it fixable.
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you expect, and what did you get instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: The commands you ran, plus the relevant `site.toml`, front matter and template.
+      placeholder: |
+        1. jamstack init demo --theme blog
+        2. jamstack build
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: jamstack version
+      placeholder: 2.0.0
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: "3.12"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Linux
+        - macOS
+        - Windows
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error output
+      description: Paste the full traceback or command output.
+      render: shell

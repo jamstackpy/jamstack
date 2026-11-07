@@ -58,4 +58,5 @@ nav:
   - Command line: cli.md
   - Deployment: deployment.md
   - Migration from 1.x: migration.md
+  - Versioning: versioning.md
   - Contributing: contributing.md
