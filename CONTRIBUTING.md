@@ -75,3 +75,7 @@ match `src/jamstack/__about__.py`. Pre-releases work the same way with
 
 Review the generated section before pushing the tag. It is a draft: keep only
 user-visible changes, list breaking changes first, and fix the wording.
+
+The `Release` workflow also creates the GitHub release from that same section,
+so the changelog is the single source of truth for the notes. Pre-release tags
+are published as GitHub pre-releases.
