@@ -5,7 +5,7 @@
 </div>
 
 [![CI](https://github.com/jamstackpy/jamstack/actions/workflows/ci.yml/badge.svg?branch=stable)](https://github.com/jamstackpy/jamstack/actions/workflows/ci.yml)
-![PyPI](https://img.shields.io/pypi/v/jamstack)
+[![PyPI](https://img.shields.io/pypi/v/jamstack?label=pypi)](https://pypi.org/project/jamstack/)
 ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)
 
 ## Documentation
