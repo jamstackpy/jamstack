@@ -35,6 +35,26 @@ jobs:
       - run: pip install -e ".[dev]"
       - run: pytest --cov --cov-report=term-missing
 
+  wheel:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - run: pip install build
+      - run: python -m build --wheel
+      - name: Install the wheel in a clean environment
+        run: |
+          python -m venv "$RUNNER_TEMP/smoke"
+          "$RUNNER_TEMP/smoke/bin/python" -m pip install dist/*.whl
+          "$RUNNER_TEMP/smoke/bin/jamstack" init "$RUNNER_TEMP/site" --theme blog
+      - name: Build the generated site
+        run: |
+          cd "$RUNNER_TEMP/site"
+          "$RUNNER_TEMP/smoke/bin/jamstack" build
+          test -f dist/index.html
+
   commits:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-24.04
