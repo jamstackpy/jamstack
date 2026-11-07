@@ -7,6 +7,7 @@ from markupsafe import Markup
 
 from jamstack.config import Config
 from jamstack.content import Page, load_pages, render_markdown
+from jamstack.feed import write_feed, write_sitemap
 from jamstack.render import create_environment
 from jamstack.theme import resolve_theme
 
@@ -39,6 +40,8 @@ def build(config: Config, *, clean: bool = False, drafts: bool = False) -> Build
 
     copy_static(theme.static, config.output)
     copy_static(config.root / "static", config.output)
+    write_sitemap(config, pages, config.output)
+    write_feed(config, pages, config.output)
 
     return BuildResult(output=config.output, page_count=len(pages))
 

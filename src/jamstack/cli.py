@@ -43,6 +43,7 @@ def init(path: Path, theme: str, force: bool) -> None:
     site_toml = f"""[site]
 title = {json.dumps(path.resolve().name.replace("-", " ").replace("_", " ").title())}
 description = ""
+# Absolute public URL. Required to generate sitemap.xml and feed.xml.
 base_url = ""
 language = "en"
 

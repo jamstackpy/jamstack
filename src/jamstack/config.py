@@ -19,6 +19,7 @@ class Config:
     root: Path
     title: str
     description: str
+    author: str
     base_url: str
     language: str
     output: Path
@@ -51,6 +52,7 @@ def load_config(root: Path) -> Config:
         root=root,
         title=title,
         description=str(site.get("description", "")),
+        author=str(site.get("author", "")),
         base_url=str(site.get("base_url", "")),
         language=str(site.get("language", "en")),
         output=root / str(build.get("output", "dist")),
