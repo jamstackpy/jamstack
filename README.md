@@ -13,8 +13,8 @@
 ## Documentation
 
 The full documentation lives in [`docs/`](docs/) and is built with Zensical.
-Preview it locally with `zensical serve`; it will be published at
-<https://jamstackpy.github.io/jamstack/> once Pages is configured.
+Preview it locally with `zensical serve`; it is published at
+<https://jamstackpy.github.io/>.
 
 Jamstack turns a folder of Markdown and Jinja templates into a static site.
 There is no database, no runtime, and no network access during a build: you
