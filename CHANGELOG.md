@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.1.0 (2026-11-07)
+
+### Features
+
+- Render Markdown tables in `.md` pages.
+- Override a page URL with the `url` front matter key. Invalid values now fail
+  the build instead of being silently ignored.
+
+### Bug fixes
+
+- Serve the generated `404.html` with a 404 status from `jamstack serve`.
+
 ## 2.0.0 (2026-11-07)
 
 ### Breaking
