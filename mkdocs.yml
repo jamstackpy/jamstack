@@ -1,0 +1,61 @@
+site_name: jamstack
+site_description: A small static site generator built on Python and Jinja.
+site_url: https://jamstackpy.github.io/
+repo_url: https://github.com/jamstackpy/jamstack
+repo_name: jamstackpy/jamstack
+edit_uri: edit/stable/docs/
+docs_dir: docs
+strict: true
+
+theme:
+  variant: modern
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+  features:
+    - navigation.sections
+    - content.code.copy
+    - search.suggest
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+extra_css:
+  - assets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Tutorial: tutorial.md
+  - Content: content.md
+  - Configuration: configuration.md
+  - Themes: themes.md
+  - Command line: cli.md
+  - Deployment: deployment.md
+  - Migration from 1.x: migration.md
+  - Contributing: contributing.md

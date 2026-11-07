@@ -1,0 +1,137 @@
+:root {
+  color-scheme: light dark;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --background: #fdfdfc;
+  --accent: #2563eb;
+  --rule: #e5e5e2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e8e8e6;
+    --muted: #a0a0a0;
+    --background: #131313;
+    --accent: #7aa2f7;
+    --rule: #2a2a2a;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font: 1.0625rem/1.7 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.site-header,
+.site-main,
+.site-footer {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.site-header {
+  padding-top: 2.5rem;
+  padding-bottom: 1rem;
+}
+
+.site-title {
+  color: var(--text);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.site-main {
+  padding-bottom: 4rem;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+a {
+  color: var(--accent);
+}
+
+time {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.page-list {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.page-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.page-list a {
+  text-decoration: none;
+}
+
+pre,
+code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  border-radius: 8px;
+}
+
+code {
+  padding: 0.1em 0.3em;
+  background: color-mix(in srgb, var(--text) 7%, transparent);
+  border-radius: 4px;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+}
+
+blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--rule);
+  color: var(--muted);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.site-footer {
+  padding-top: 1rem;
+  padding-bottom: 2.5rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
