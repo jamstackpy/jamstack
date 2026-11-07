@@ -10,7 +10,7 @@ from markupsafe import Markup
 from jamstack.config import JamstackError
 
 FRONT_MATTER_DELIMITER = "+++"
-MARKDOWN = MarkdownIt("commonmark", {"html": True})
+MARKDOWN = MarkdownIt("commonmark", {"html": True}).enable("table")
 
 
 class ContentError(JamstackError):
