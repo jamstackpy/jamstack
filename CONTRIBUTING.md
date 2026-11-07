@@ -72,3 +72,6 @@ git push origin v<version>
 The `Release` workflow runs on tags matching `v*` and fails if the tag does not
 match `src/jamstack/__about__.py`. Pre-releases work the same way with
 `cz bump --prerelease rc`.
+
+Review the generated section before pushing the tag. It is a draft: keep only
+user-visible changes, list breaking changes first, and fix the wording.

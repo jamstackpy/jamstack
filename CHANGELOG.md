@@ -1,30 +1,39 @@
 # Changelog
 
-All notable changes to this project are documented in this file. Entries before
-2.0 were written by hand; later entries are generated from Conventional Commits.
+All notable changes to this project are documented in this file.
 
 ## 2.0.0 (2026-11-07)
 
 ### Breaking
 
-- The 1.x engine is gone: projects built with `settings.py`, `static.py` and the
-  html5up themes must migrate to `site.toml` and `content/`. See `docs/migration.md`.
+- The engine was rewritten. Projects built with `settings.py`, `static.py` or
+  the html5up themes must migrate to `site.toml` and `content/`; see
+  [the migration guide](docs/migration.md).
+- Python 3.11 or newer is required.
+- The html5up themes are no longer bundled or downloaded. 2.0 ships its own
+  `minimal` and `blog` themes.
 
-### Feat
+### Features
 
-- **themes**: render a 404 page from the active theme
-- **feed**: generate sitemap.xml and an Atom feed
-- **serve**: rebuild the site when sources change
-- **serve**: serve the built site over HTTP
-- **themes**: add theme manifests and a reading-first blog theme
-- **build**: render sites with the bundled minimal theme
-- **content**: parse front matter and resolve page URLs
-- **config**: load and validate site.toml
+- `jamstack init` creates a site from a bundled theme.
+- `site.toml` configures the title, description, author, base URL, output
+  directory and theme.
+- Markdown and Jinja pages in `content/` use TOML front matter and map to clean
+  URLs.
+- `jamstack build` renders every page through Jinja with strict undefined
+  handling and copies the theme and project static files.
+- Themes are discovered from the bundled set and from `themes/` in the project;
+  templates and static files can be overridden per project.
+- `jamstack themes` lists the available themes and their origin.
+- `jamstack serve` serves the output over HTTP and rebuilds when a source
+  changes.
+- `sitemap.xml` and an Atom `feed.xml` are generated when `base_url` is set,
+  and themes can provide a `404.html`.
 
-### Fix
+### Bug fixes
 
-- **serve**: keep watching after a failed rebuild
-- **serve**: flush status messages in redirected output
+- `serve` keeps watching after a failed rebuild.
+- `serve` flushes status messages when output is redirected.
 
 ## 1.1.0
 
