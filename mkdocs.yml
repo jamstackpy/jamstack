@@ -3,7 +3,7 @@ site_description: A small static site generator built on Python and Jinja.
 site_url: https://jamstackpy.github.io/
 repo_url: https://github.com/jamstackpy/jamstack
 repo_name: jamstackpy/jamstack
-edit_uri: edit/2.0/docs/
+edit_uri: edit/stable/docs/
 docs_dir: docs
 strict: true
 

@@ -1,6 +1,6 @@
 # Contributing
 
-The project is developed on the `2.0` branch. Bug reports and pull requests go
+The project is developed on the `stable` branch. Bug reports and pull requests go
 to [github.com/jamstackpy/jamstack](https://github.com/jamstackpy/jamstack).
 
 ## Local setup
@@ -8,7 +8,7 @@ to [github.com/jamstackpy/jamstack](https://github.com/jamstackpy/jamstack).
 ```bash
 git clone git@github.com:jamstackpy/jamstack.git
 cd jamstack
-git switch 2.0
+git switch stable
 python -m venv .venv
 . .venv/bin/activate
 pip install -e ".[dev]"
@@ -46,9 +46,9 @@ a bullet-point body explaining what and why.
 
 ## Pull requests
 
-- Target `2.0`.
+- Target `stable`.
 - Keep user-facing text and documentation in English.
 - Do not rewrite pushed history.
 
 The full guide, including the release process, lives in
-[CONTRIBUTING.md](https://github.com/jamstackpy/jamstack/blob/2.0/CONTRIBUTING.md).
+[CONTRIBUTING.md](https://github.com/jamstackpy/jamstack/blob/stable/CONTRIBUTING.md).

@@ -5,7 +5,7 @@
 ```bash
 git clone git@github.com:jamstackpy/jamstack.git
 cd jamstack
-git switch 2.0
+git switch stable
 python -m venv .venv
 . .venv/bin/activate
 pip install -e ".[dev]"
@@ -42,7 +42,7 @@ explaining what and why. `commitizen` validates the message through the
 
 ## Pull requests
 
-- Target the `2.0` branch.
+- Target the `stable` branch.
 - Include a test for new behaviour; bug fixes should include the case that
   reproduces the bug.
 - Keep user-facing strings and documentation in English.
@@ -60,15 +60,15 @@ One-time setup:
    environment `pypi`.
 2. On GitHub, create an environment named `pypi` in the repository settings.
 
-For the first 2.0 release, the version in `src/jamstack/__about__.py` is
-`2.0.0.dev0`. Set it to `2.0.0`, regenerate the changelog, and tag:
+Releases use `cz bump`. It updates `src/jamstack/__about__.py`, rewrites
+`CHANGELOG.md`, commits the result, and creates the tag in one step:
 
 ```bash
-cz changelog
-git commit -am "chore(release): 2.0.0"
-git tag v2.0.0
-git push origin 2.0 v2.0.0
+cz bump --increment patch   # or minor, major
+git push origin stable
+git push origin v<version>
 ```
 
-Later releases use `cz bump`, which updates the version, rewrites
-`CHANGELOG.md`, commits, and creates the tag in one step.
+The `Release` workflow runs on tags matching `v*` and fails if the tag does not
+match `src/jamstack/__about__.py`. Pre-releases work the same way with
+`cz bump --prerelease rc`.

@@ -43,7 +43,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-      - run: pip install "jamstack @ git+https://github.com/jamstackpy/jamstack@2.0"
+      - run: pip install jamstack
       - run: jamstack build --clean
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
@@ -66,7 +66,7 @@ If you publish by pushing a `gh-pages` branch instead, add an empty
 
 | Setting | Value |
 | --- | --- |
-| Build command | `pip install "jamstack @ git+https://github.com/jamstackpy/jamstack@2.0" && jamstack build --clean` |
+| Build command | `pip install jamstack && jamstack build --clean` |
 | Publish directory | `dist` |
 
 Netlify's build image must provide Python 3.11 or newer. If it does not,
@@ -78,7 +78,7 @@ site.
 | Setting | Value |
 | --- | --- |
 | Framework preset | None |
-| Build command | `pip install "jamstack @ git+https://github.com/jamstackpy/jamstack@2.0" && jamstack build --clean` |
+| Build command | `pip install jamstack && jamstack build --clean` |
 | Build output directory | `dist` |
 
 As with Netlify, if the build image lacks a suitable Python, build elsewhere

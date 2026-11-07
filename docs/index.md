@@ -15,19 +15,18 @@ network access during a build.</p>
 
 </div>
 
-!!! warning "2.0 is under development"
+!!! info "Version 2.0"
 
-    This documentation describes the 2.0 engine. It is not published on PyPI
-    yet; install it from the `2.0` branch as shown below. The `stable` branch
-    holds the current 1.x release.
+    This documentation covers the 2.0 engine. Projects built with 1.x need the
+    conversion described in [Migration from 1.x](migration.md).
 
 ## Install
 
 ```bash
-python -m pip install "jamstack @ git+https://github.com/jamstackpy/jamstack@2.0"
+python -m pip install jamstack
 ```
 
-Python 3.11 or newer. Once 2.0 is released, `pip install jamstack` is enough.
+Python 3.11 or newer.
 
 ## Quick start
 

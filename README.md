@@ -4,11 +4,9 @@
   <p>A small static site generator built on Python and Jinja.</p>
 </div>
 
-[![CI](https://github.com/jamstackpy/jamstack/actions/workflows/ci.yml/badge.svg?branch=2.0)](https://github.com/jamstackpy/jamstack/actions/workflows/ci.yml)
+[![CI](https://github.com/jamstackpy/jamstack/actions/workflows/ci.yml/badge.svg?branch=stable)](https://github.com/jamstackpy/jamstack/actions/workflows/ci.yml)
+![PyPI](https://img.shields.io/pypi/v/jamstack)
 ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)
-
-> **2.0 is under development.** This branch contains the rewrite and is not
-> published on PyPI yet. The `stable` branch holds the current 1.x release.
 
 ## Documentation
 
@@ -33,14 +31,6 @@ anywhere.
 - Three runtime dependencies: `click`, `jinja2`, `markdown-it-py`.
 
 ## Installation
-
-Until 2.0 is published:
-
-```bash
-python -m pip install "jamstack @ git+https://github.com/jamstackpy/jamstack@2.0"
-```
-
-After the release:
 
 ```bash
 python -m pip install jamstack
@@ -174,7 +164,7 @@ python -m pip install "jamstack<2"
 ```bash
 git clone git@github.com:jamstackpy/jamstack.git
 cd jamstack
-git switch 2.0
+git switch stable
 python -m venv .venv
 . .venv/bin/activate
 pip install -e ".[dev]"
