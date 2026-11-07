@@ -72,6 +72,9 @@ addopts = "-ra --strict-markers"
 [tool.coverage.run]
 source = ["jamstack"]
 
+[tool.coverage.report]
+fail_under = 85
+
 [tool.commitizen]
 name = "cz_conventional_commits"
 tag_format = "v$version"
