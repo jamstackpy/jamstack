@@ -85,6 +85,19 @@ The project's own `templates/` directory is searched before the theme's. To
 tweak one file without copying the whole theme, create
 `<project>/templates/page.html`; the rest keeps coming from the theme.
 
+## Starting from a bundled theme
+
+To change a bundled theme's structure, copy it into the project and edit the
+copy. Local themes win over bundled ones with the same name:
+
+```bash
+mkdir -p themes
+cp -r "$(python -c 'import jamstack, pathlib; print(pathlib.Path(jamstack.__file__).parent / "themes" / "blog")')" themes/blog
+```
+
+The project now has `themes/blog/` with the same `name`, so `[theme] name =
+"blog"` keeps working and the local files take over.
+
 ## Minimal theme
 
 ```
