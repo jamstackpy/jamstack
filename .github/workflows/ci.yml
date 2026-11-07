@@ -35,6 +35,16 @@ jobs:
       - run: pip install -e ".[dev]"
       - run: pytest --cov --cov-report=term-missing
 
+  test-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - run: pip install -e ".[dev]"
+      - run: pytest
+
   wheel:
     runs-on: ubuntu-24.04
     steps:
