@@ -1,0 +1,30 @@
+name: Docs sync
+
+on:
+  push:
+    branches: [stable]
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-24.04
+    env:
+      TOKEN: ${{ secrets.DOCS_DISPATCH_TOKEN }}
+    steps:
+      - name: Trigger the documentation build
+        if: env.TOKEN != ''
+        run: |
+          curl --fail --silent --show-error \
+            -X POST \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/jamstackpy/jamstackpy.github.io/dispatches \
+            -d '{"event_type":"docs-updated"}'
+      - name: Warn when the token is missing
+        if: env.TOKEN == ''
+        run: echo "::notice::DOCS_DISPATCH_TOKEN is not set; the site will pick this up on its daily rebuild."
