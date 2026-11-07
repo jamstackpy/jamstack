@@ -177,5 +177,5 @@ see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-MIT. The 1.x html5up templates were distributed under CC BY 3.0 and are no
-longer part of this branch.
+Apache-2.0. The 1.x html5up templates were distributed under CC BY 3.0 and are
+no longer part of this branch.
