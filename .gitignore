@@ -131,3 +131,4 @@ dmypy.json
 # Local tooling
 .venv/
 .ruff_cache/
+site/
