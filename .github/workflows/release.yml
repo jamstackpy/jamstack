@@ -40,3 +40,31 @@ jobs:
           name: dist
           path: dist/
       - uses: pypa/gh-action-pypi-publish@release/v1
+
+  release:
+    needs: publish
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Create the GitHub release from the changelog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          awk -v ver="$version" 'index($0, "## " ver " (") == 1 || $0 == "## " ver { found = 1; next } found && /^## / { exit } found' CHANGELOG.md \
+            | sed "s#(docs/#(https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/docs/#g" > "$RUNNER_TEMP/notes.md"
+          if [ ! -s "$RUNNER_TEMP/notes.md" ]; then
+            echo "::error::CHANGELOG.md has no section for $version"
+            exit 1
+          fi
+          prerelease=()
+          case "$version" in
+            *rc[0-9]*|*a[0-9]*|*b[0-9]*|*dev[0-9]*) prerelease=(--prerelease) ;;
+          esac
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            gh release edit "$GITHUB_REF_NAME" --title "$version" --notes-file "$RUNNER_TEMP/notes.md" "${prerelease[@]}"
+          else
+            gh release create "$GITHUB_REF_NAME" --title "$version" --notes-file "$RUNNER_TEMP/notes.md" --verify-tag "${prerelease[@]}"
+          fi
