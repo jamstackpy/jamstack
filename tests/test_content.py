@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from jamstack.content import ContentError, load_pages
+from jamstack.content import ContentError, load_pages, render_markdown
 
 
 def write_page(root: Path, name: str, text: str) -> None:
@@ -69,4 +69,28 @@ def test_invalid_date_rejected(tmp_path: Path) -> None:
     write_page(tmp_path, "post.md", '+++\ntitle = "P"\ndate = "not-a-date"\n+++\n')
 
     with pytest.raises(ContentError, match="invalid date"):
+        load_pages(tmp_path)
+
+
+def test_markdown_tables_are_rendered() -> None:
+    html = render_markdown("| A | B |\n| --- | --- |\n| 1 | 2 |")
+
+    assert "<table>" in html
+    assert "<td>1</td>" in html
+
+
+def test_url_front_matter_overrides_the_output_path(tmp_path: Path) -> None:
+    write_page(tmp_path, "custom.md", '+++\ntitle = "Custom"\nurl = "/otra-ruta/"\n+++\n')
+
+    [page] = load_pages(tmp_path)
+
+    assert page.url == "/otra-ruta/"
+    assert page.output.as_posix() == "otra-ruta/index.html"
+
+
+@pytest.mark.parametrize("url", ["otra", "/../x/", "/foo"])
+def test_invalid_url_rejected(tmp_path: Path, url: str) -> None:
+    write_page(tmp_path, "bad.md", f'+++\nurl = "{url}"\n+++\n')
+
+    with pytest.raises(ContentError, match="url"):
         load_pages(tmp_path)

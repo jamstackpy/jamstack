@@ -1,8 +1,11 @@
 import os
 import threading
 import time
+import urllib.error
 import urllib.request
 from pathlib import Path
+
+import pytest
 
 from jamstack.builder import build
 from jamstack.config import load_config
@@ -31,6 +34,26 @@ def test_create_server_serves_the_build_output(tmp_path: Path) -> None:
             body = response.read().decode("utf-8")
         assert response.status == 200
         assert "Hello server" in body
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
+
+
+def test_server_serves_the_generated_404_page(tmp_path: Path) -> None:
+    make_site(tmp_path)
+    config = load_config(tmp_path)
+    build(config)
+
+    server = create_server(config, 0)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        port = server.server_address[1]
+        with pytest.raises(urllib.error.HTTPError) as excinfo:
+            urllib.request.urlopen(f"http://127.0.0.1:{port}/missing/", timeout=5)
+        assert excinfo.value.code == 404
+        assert "Page not found" in excinfo.value.read().decode("utf-8")
     finally:
         server.shutdown()
         server.server_close()

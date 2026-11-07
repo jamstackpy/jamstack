@@ -10,7 +10,7 @@ from markupsafe import Markup
 from jamstack.config import JamstackError
 
 FRONT_MATTER_DELIMITER = "+++"
-MARKDOWN = MarkdownIt("commonmark", {"html": True})
+MARKDOWN = MarkdownIt("commonmark", {"html": True}).enable("table")
 
 
 class ContentError(JamstackError):
@@ -64,14 +64,20 @@ def load_page(source: Path, content_dir: Path) -> Page:
     meta, body = split_front_matter(text, source)
 
     relative = source.relative_to(content_dir).with_suffix("")
-    parts = list(relative.parts)
-    if parts[-1] == "index":
-        parts.pop()
+    url = parse_url(meta.get("url"), source)
+    if url is None:
+        parts = list(relative.parts)
+        if parts[-1] == "index":
+            parts.pop()
+        url = "/" + "".join(f"{part}/" for part in parts) if parts else "/"
+        output = Path(*parts, "index.html")
+    else:
+        output = output_for_url(url)
 
     return Page(
         source=source,
-        url="/" + "".join(f"{part}/" for part in parts) if parts else "/",
-        output=Path(*parts, "index.html"),
+        url=url,
+        output=output,
         title=parse_title(meta, relative.name),
         template=parse_template(meta, relative.name),
         date=parse_date(meta.get("date"), source),
@@ -79,6 +85,33 @@ def load_page(source: Path, content_dir: Path) -> Page:
         body=body,
         meta=meta,
     )
+
+
+def parse_url(value: Any, source: Path) -> str | None:
+    if value is None:
+        return None
+    url = str(value).strip()
+    if not url:
+        return None
+    if not url.startswith("/"):
+        raise ContentError(f"{source}: url must start with '/', got {url!r}")
+    if any(token in url for token in ("\\", ":", "?", "#", "\x00")):
+        raise ContentError(f"{source}: invalid url {url!r}")
+    parts = [part for part in url.split("/") if part]
+    if any(part in {".", ".."} for part in parts):
+        raise ContentError(f"{source}: invalid url {url!r}")
+    if not parts:
+        return "/"
+    if not url.endswith("/") and Path(url).suffix != ".html":
+        raise ContentError(f"{source}: url must end with '/' or '.html', got {url!r}")
+    return "/" + "/".join(parts) + ("/" if url.endswith("/") else "")
+
+
+def output_for_url(url: str) -> Path:
+    parts = [part for part in url.split("/") if part]
+    if url.endswith("/"):
+        return Path(*parts, "index.html")
+    return Path(*parts)
 
 
 def split_front_matter(text: str, source: Path) -> tuple[dict[str, Any], str]:

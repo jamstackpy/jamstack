@@ -45,9 +45,30 @@ Front matter is optional. Without it, the title is derived from the file name
 | `template` | string | `index` or `page` | Template file, with or without `.html`. |
 | `draft` | boolean | `false` | Skipped unless the build uses `--drafts`. |
 | `summary` | string | none | Short description used by the blog theme and the feed. |
+| `url` | string | Derived from the file | Public URL, starting with `/` and ending in `/` or `.html`. |
 
 Any other key is kept in `page.meta` and is available to templates, so a theme
 can support `cover`, `tags`, or anything else without engine changes.
+
+### URLs
+
+By default the URL comes from the file path: `about.md` becomes `/about/` and
+`posts/hello.md` becomes `/posts/hello/`. Use `url` in the front matter to
+publish a page somewhere else:
+
+```toml
++++
+title = "Changelog"
+url = "/changelog/"
++++
+```
+
+The value must start with `/` and end in `/` or `.html`; anything else fails
+the build instead of being silently ignored.
+
+File names are used as written, including non-ASCII characters: `año-nuevo.md`
+is published at `/año-nuevo/`. Keep that in mind when choosing names, because
+changing one changes the URL.
 
 ### Dates
 
