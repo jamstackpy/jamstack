@@ -7,6 +7,7 @@ import click
 from jamstack.__about__ import __version__
 from jamstack.builder import build as build_site
 from jamstack.config import JamstackError, load_config
+from jamstack.server import serve as serve_site
 from jamstack.theme import discover_themes, resolve_theme
 
 INDEX_PAGE = """+++
@@ -83,6 +84,18 @@ def build(clean: bool, drafts: bool) -> None:
         raise click.ClickException(str(error)) from error
 
     click.echo(f"Built {result.page_count} page(s) into {result.output}")
+
+
+@main.command()
+@click.option("--port", default=8000, show_default=True, type=click.IntRange(0, 65535))
+@click.option("--drafts", is_flag=True, help="Include pages marked as drafts.")
+def serve(port: int, drafts: bool) -> None:
+    """Build the site, serve it, and rebuild on changes."""
+    try:
+        config = load_config(Path.cwd())
+        serve_site(config, port=port, drafts=drafts)
+    except JamstackError as error:
+        raise click.ClickException(str(error)) from error
 
 
 @main.command("themes")
