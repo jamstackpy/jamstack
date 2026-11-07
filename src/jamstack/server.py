@@ -62,20 +62,20 @@ def watch(config: Config, drafts: bool, poll_interval: float, stop: threading.Ev
         try:
             result = build(config, drafts=drafts)
         except JamstackError as error:
-            print(f"Build failed: {error}")
+            print(f"Build failed: {error}", flush=True)
         else:
-            print(f"Rebuilt {result.page_count} page(s)")
+            print(f"Rebuilt {result.page_count} page(s)", flush=True)
 
 
 def serve(
     config: Config, port: int = 8000, drafts: bool = False, poll_interval: float = 0.5
 ) -> None:
     result = build(config, drafts=drafts)
-    print(f"Built {result.page_count} page(s) into {result.output}")
+    print(f"Built {result.page_count} page(s) into {result.output}", flush=True)
 
     server = create_server(config, port)
     address, actual_port = server.server_address[:2]
-    print(f"Serving at http://{address}:{actual_port}/ (Ctrl+C to stop)")
+    print(f"Serving at http://{address}:{actual_port}/ (Ctrl+C to stop)", flush=True)
 
     stop = threading.Event()
     watcher = threading.Thread(
