@@ -10,6 +10,12 @@
 > **2.0 is under development.** This branch contains the rewrite and is not
 > published on PyPI yet. The `stable` branch holds the current 1.x release.
 
+## Documentation
+
+The full documentation lives in [`docs/`](docs/) and is built with Zensical.
+Preview it locally with `zensical serve`; it will be published at
+<https://jamstackpy.github.io/jamstack/> once Pages is configured.
+
 Jamstack turns a folder of Markdown and Jinja templates into a static site.
 There is no database, no runtime, and no network access during a build: you
 write content, run one command, and deploy the generated `dist/` folder
