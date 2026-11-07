@@ -3,7 +3,7 @@
 All notable changes to this project are documented in this file. Entries before
 2.0 were written by hand; later entries are generated from Conventional Commits.
 
-## 2.0.0rc1 (2026-11-07)
+## 2.0.0 (2026-11-07)
 
 ### Breaking
 
