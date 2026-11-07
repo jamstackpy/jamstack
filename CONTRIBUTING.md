@@ -48,6 +48,10 @@ explaining what and why. `commitizen` validates the message through the
 - Keep user-facing strings and documentation in English.
 - Do not rewrite pushed history.
 
+## Versioning
+
+The project follows Semantic Versioning. The full policy, including what counts as a breaking change and how deprecations work, lives in [docs/versioning.md](docs/versioning.md).
+
 ## Releasing
 
 Publishing runs on tags through GitHub Actions and PyPI trusted publishing,
