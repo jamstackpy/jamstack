@@ -74,3 +74,34 @@ def test_watch_rebuilds_when_content_changes(tmp_path: Path) -> None:
     finally:
         stop.set()
         watcher.join(timeout=5)
+
+
+def test_watch_survives_a_broken_template(tmp_path: Path) -> None:
+    make_site(tmp_path)
+    config = load_config(tmp_path)
+    build(config)
+
+    stop = threading.Event()
+    watcher = threading.Thread(target=watch, args=(config, False, 0.05, stop), daemon=True)
+    watcher.start()
+    try:
+        time.sleep(0.2)
+        templates = tmp_path / "templates"
+        templates.mkdir()
+        (templates / "index.html").write_text("{{ missing_variable }}", encoding="utf-8")
+        time.sleep(0.4)
+
+        (templates / "index.html").unlink()
+        (tmp_path / "content" / "index.md").write_text(
+            '+++\ntitle = "Home"\n+++\n\nRecovered body\n', encoding="utf-8"
+        )
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline:
+            if "Recovered body" in (tmp_path / "dist" / "index.html").read_text(encoding="utf-8"):
+                break
+            time.sleep(0.05)
+        assert "Recovered body" in (tmp_path / "dist" / "index.html").read_text(encoding="utf-8")
+        assert watcher.is_alive()
+    finally:
+        stop.set()
+        watcher.join(timeout=5)

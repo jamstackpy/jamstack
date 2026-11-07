@@ -5,7 +5,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 from jamstack.builder import build
-from jamstack.config import Config, JamstackError
+from jamstack.config import Config
 from jamstack.theme import resolve_theme
 
 
@@ -61,7 +61,7 @@ def watch(config: Config, drafts: bool, poll_interval: float, stop: threading.Ev
         previous = settled
         try:
             result = build(config, drafts=drafts)
-        except JamstackError as error:
+        except Exception as error:  # a bad build must not kill the watcher
             print(f"Build failed: {error}", flush=True)
         else:
             print(f"Rebuilt {result.page_count} page(s)", flush=True)
