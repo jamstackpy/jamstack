@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://jamstackpy.github.io/
+    about: Guides and reference for the current release.
+  - name: Security vulnerability
+    url: https://github.com/jamstackpy/jamstack/security/advisories/new
+    about: Report it privately. Do not open a public issue.
