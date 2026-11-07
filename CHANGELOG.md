@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.1.1 (2026-11-07)
+
+### Bug fixes
+
+- Publish the package under the Apache-2.0 license it has always used. The
+  metadata for 2.0.0 and 2.1.0 incorrectly declared MIT.
+
 ## 2.1.0 (2026-11-07)
 
 ### Features
