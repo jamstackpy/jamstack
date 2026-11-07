@@ -1,0 +1,196 @@
+/* jamstack brand layer.
+   Palette sampled from the logo: Python blue, Python yellow, charcoal. */
+
+:root > * {
+  --jam-blue: #306998;
+  --jam-blue-light: #4b8bbe;
+  --jam-blue-dark: #234e73;
+  --jam-yellow: #ffd43b;
+  --jam-gold: #a97b00;
+  --jam-ink: #383837;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: var(--jam-blue);
+  --md-primary-fg-color--light: var(--jam-blue-light);
+  --md-primary-fg-color--dark: var(--jam-blue-dark);
+  --md-typeset-a-color: #2b6091;
+  --md-accent-fg-color: var(--jam-gold);
+  --md-default-bg-color: #fdfcf9;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: var(--jam-blue);
+  --md-primary-fg-color--light: var(--jam-blue-light);
+  --md-primary-fg-color--dark: var(--jam-blue-dark);
+  --md-typeset-a-color: #7cc0ef;
+  --md-accent-fg-color: var(--jam-yellow);
+  --md-default-bg-color: #14181d;
+}
+
+/* A hairline in the logo colours instead of a heavy header shadow. */
+.md-header {
+  box-shadow: none;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-header::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--jam-blue) 0 45%,
+    var(--jam-blue-light) 45% 72%,
+    var(--jam-yellow) 72%
+  );
+}
+
+/* Tighter, quieter reading column. */
+.md-grid {
+  max-width: 74rem;
+}
+
+.md-content__inner {
+  max-width: 46rem;
+}
+
+.md-typeset {
+  line-height: 1.72;
+}
+
+.md-typeset h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.md-typeset h2 {
+  font-weight: 650;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+  margin-top: 2.2em;
+  padding-top: 0.8em;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.md-typeset .md-button {
+  border-radius: 4px;
+  border-width: 1.5px;
+  padding: 0.45em 1.1em;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.md-typeset pre > code {
+  font-size: 0.72rem;
+}
+
+/* Home: compact hero. */
+.jam-hero {
+  margin-bottom: 1.2rem;
+  padding: 1.2rem 0 1rem;
+}
+
+.jam-hero .jam-logo {
+  display: block;
+  width: 76px;
+  height: 76px;
+  margin: 0 0 1rem;
+}
+
+.jam-kicker {
+  margin: 0 0 0.45rem;
+  color: var(--jam-blue);
+  font-family: var(--md-code-font);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+[data-md-color-scheme="slate"] .jam-kicker {
+  color: var(--jam-blue-light);
+}
+
+.jam-hero h1 {
+  margin: 0 0 0.55rem;
+  padding: 0;
+  border: 0;
+  font-size: 2.5rem;
+  line-height: 1.05;
+}
+
+.jam-lede {
+  max-width: 36rem;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.88rem;
+}
+
+.jam-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.jam-actions .md-button {
+  margin: 0;
+}
+
+/* Home: feature grid. */
+.jam-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem 1.6rem;
+  margin-top: 1rem;
+}
+
+.jam-features > div {
+  border-left: 2px solid var(--jam-yellow);
+  padding-left: 0.8rem;
+}
+
+.jam-features p {
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+.jam-features strong {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--md-default-fg-color);
+}
+
+/* Home: link list. */
+.jam-links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jam-links li {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  font-size: 0.76rem;
+}
+
+.jam-links a {
+  font-weight: 600;
+}
+
+@media (max-width: 44em) {
+  .jam-hero h1 {
+    font-size: 2rem;
+  }
+
+  .jam-features {
+    grid-template-columns: 1fr;
+  }
+}

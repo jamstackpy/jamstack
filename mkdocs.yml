@@ -9,6 +9,11 @@ strict: true
 
 theme:
   variant: modern
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
   features:
     - navigation.sections
     - content.code.copy
@@ -16,19 +21,27 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
+
+extra_css:
+  - assets/extra.css
 
 markdown_extensions:
   - admonition
   - attr_list
   - def_list
+  - md_in_html
   - toc:
       permalink: true
   - pymdownx.highlight
