@@ -77,3 +77,5 @@ name = "cz_conventional_commits"
 tag_format = "v$version"
 version_files = ["src/jamstack/__about__.py"]
 update_changelog_on_bump = true
+change_type_order = ["BREAKING CHANGE", "Features", "Bug fixes", "Performance", "Refactoring", "Reverts"]
+change_type_map = { feat = "Features", fix = "Bug fixes", perf = "Performance", refactor = "Refactoring", revert = "Reverts" }
