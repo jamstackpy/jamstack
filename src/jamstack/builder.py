@@ -2,7 +2,7 @@ import shutil
 from dataclasses import dataclass
 from pathlib import Path
 
-from jinja2 import Environment
+from jinja2 import Environment, TemplateNotFound
 from markupsafe import Markup
 
 from jamstack.config import Config
@@ -42,8 +42,21 @@ def build(config: Config, *, clean: bool = False, drafts: bool = False) -> Build
     copy_static(config.root / "static", config.output)
     write_sitemap(config, pages, config.output)
     write_feed(config, pages, config.output)
+    render_not_found(environment, config, pages, config.output)
 
     return BuildResult(output=config.output, page_count=len(pages))
+
+
+def render_not_found(
+    environment: Environment, config: Config, pages: list[Page], output: Path
+) -> None:
+    try:
+        template = environment.get_template("404.html")
+    except TemplateNotFound:
+        return
+
+    destination = output / "404.html"
+    destination.write_text(template.render(site=config, pages=pages), encoding="utf-8")
 
 
 def render_page_body(environment: Environment, page: Page, context: dict[str, object]) -> Markup:
