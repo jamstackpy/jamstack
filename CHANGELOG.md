@@ -1,4 +1,30 @@
-# CHANGELOGS
+# Changelog
+
+All notable changes to this project are documented in this file. Entries before
+2.0 were written by hand; later entries are generated from Conventional Commits.
+
+## 2.0.0rc1 (2026-11-07)
+
+### Breaking
+
+- The 1.x engine is gone: projects built with `settings.py`, `static.py` and the
+  html5up themes must migrate to `site.toml` and `content/`. See `docs/migration.md`.
+
+### Feat
+
+- **themes**: render a 404 page from the active theme
+- **feed**: generate sitemap.xml and an Atom feed
+- **serve**: rebuild the site when sources change
+- **serve**: serve the built site over HTTP
+- **themes**: add theme manifests and a reading-first blog theme
+- **build**: render sites with the bundled minimal theme
+- **content**: parse front matter and resolve page URLs
+- **config**: load and validate site.toml
+
+### Fix
+
+- **serve**: keep watching after a failed rebuild
+- **serve**: flush status messages in redirected output
 
 ## 1.1.0
 
