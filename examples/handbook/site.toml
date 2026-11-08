@@ -1,0 +1,23 @@
+[site]
+title = "Handbook"
+description = "A documentation site built with jamstack."
+author = "jamstack"
+base_url = "https://handbook.example.com"
+language = "en"
+
+[build]
+output = "dist"
+
+[theme]
+name = "handbook"
+
+[extra]
+footer_text = "Built with jamstack. Content licensed CC BY 4.0."
+footer_note = "This example exercises the free-form [extra] table."
+
+[extra.links]
+GitHub = "https://github.com/jamstackpy/jamstack"
+PyPI = "https://pypi.org/project/jamstack/"
+
+[extra.sidebar]
+sections = ["getting-started", "guides", "reference"]

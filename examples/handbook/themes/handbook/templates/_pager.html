@@ -1,0 +1,39 @@
+{% set configured = site.extra.get("sidebar", {}).get("sections", []) %}
+{% set found = namespace(names=[]) %}
+{% for item in pages %}
+  {% set name = item.meta.get("section") %}
+  {% if name and name not in found.names %}
+    {% set found.names = found.names + [name] %}
+  {% endif %}
+{% endfor %}
+{% set ordered = namespace(names=[]) %}
+{% for name in configured %}
+  {% if name in found.names %}{% set ordered.names = ordered.names + [name] %}{% endif %}
+{% endfor %}
+{% for name in found.names | sort %}
+  {% if name not in ordered.names %}{% set ordered.names = ordered.names + [name] %}{% endif %}
+{% endfor %}
+{% set flat = namespace(items=[]) %}
+{% for name in ordered.names %}
+  {% set items = namespace(list=[]) %}
+  {% for item in pages %}
+    {% if item.meta.get("section") == name %}{% set items.list = items.list + [item] %}{% endif %}
+  {% endfor %}
+  {% for item in items.list | sort(attribute="meta.order") %}
+    {% set flat.items = flat.items + [item] %}
+  {% endfor %}
+{% endfor %}
+{% set current = namespace(index=-1) %}
+{% for item in flat.items %}
+  {% if page is defined and item.url == page.url %}{% set current.index = loop.index0 %}{% endif %}
+{% endfor %}
+{% if current.index >= 0 %}
+  <nav class="pager" aria-label="Previous and next pages">
+    {% if current.index > 0 %}
+      <a class="prev" href="{{ flat.items[current.index - 1].url }}">← {{ flat.items[current.index - 1].title }}</a>
+    {% endif %}
+    {% if current.index + 1 < flat.items | length %}
+      <a class="next" href="{{ flat.items[current.index + 1].url }}">{{ flat.items[current.index + 1].title }} →</a>
+    {% endif %}
+  </nav>
+{% endif %}

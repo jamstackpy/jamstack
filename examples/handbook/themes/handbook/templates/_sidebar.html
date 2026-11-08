@@ -1,0 +1,33 @@
+{% set configured = site.extra.get("sidebar", {}).get("sections", []) %}
+{% set found = namespace(names=[]) %}
+{% for item in pages %}
+  {% set name = item.meta.get("section") %}
+  {% if name and name not in found.names %}
+    {% set found.names = found.names + [name] %}
+  {% endif %}
+{% endfor %}
+{% set ordered = namespace(names=[]) %}
+{% for name in configured %}
+  {% if name in found.names %}{% set ordered.names = ordered.names + [name] %}{% endif %}
+{% endfor %}
+{% for name in found.names | sort %}
+  {% if name not in ordered.names %}{% set ordered.names = ordered.names + [name] %}{% endif %}
+{% endfor %}
+<aside class="sidebar">
+  {% for name in ordered.names %}
+    <section class="sidebar-section">
+      <h2>{{ name | replace("-", " ") | title }}</h2>
+      {% set items = namespace(list=[]) %}
+      {% for item in pages %}
+        {% if item.meta.get("section") == name %}{% set items.list = items.list + [item] %}{% endif %}
+      {% endfor %}
+      <ul>
+        {% for item in items.list | sort(attribute="meta.order") %}
+          <li{% if page is defined and item.url == page.url %} class="active"{% endif %}>
+            <a href="{{ item.url }}">{{ item.meta.get("nav_title", item.title) }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endfor %}
+</aside>

@@ -1,0 +1,186 @@
+:root {
+  color-scheme: light dark;
+  --text: #1f1c19;
+  --muted: #756e66;
+  --background: #fbf9f6;
+  --accent: #0f5e59;
+  --rule: #e3ddd4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #ece7e0;
+    --muted: #a49c92;
+    --background: #16130f;
+    --accent: #7cc4bd;
+    --rule: #322c25;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font: 1.125rem/1.75 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  text-rendering: optimizeLegibility;
+}
+
+.masthead,
+.content,
+.colophon {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.masthead {
+  padding-top: 4rem;
+  padding-bottom: 2.5rem;
+  text-align: center;
+}
+
+.logo {
+  color: var(--text);
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.tagline {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+.content {
+  padding-bottom: 4rem;
+}
+
+a {
+  color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.25rem;
+}
+
+time {
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.post-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post-list li {
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.post-list li:first-child {
+  border-top: none;
+}
+
+.post-title {
+  display: block;
+  color: var(--text);
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.post-title:hover {
+  color: var(--accent);
+}
+
+.summary {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.post-header {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.prose {
+  padding-top: 1.5rem;
+}
+
+.prose p {
+  margin: 0 0 1.25em;
+}
+
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--rule);
+  color: var(--muted);
+  font-style: italic;
+}
+
+pre,
+code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.85em;
+}
+
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  border-radius: 6px;
+}
+
+code {
+  padding: 0.1em 0.3em;
+  background: color-mix(in srgb, var(--text) 7%, transparent);
+  border-radius: 3px;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.back {
+  margin-top: 3rem;
+  font-size: 0.9rem;
+}
+
+.empty {
+  color: var(--muted);
+}
+
+.colophon {
+  padding-top: 1.25rem;
+  padding-bottom: 3rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.85rem;
+}

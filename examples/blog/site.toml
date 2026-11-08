@@ -1,0 +1,12 @@
+[site]
+title = "Blog"
+description = ""
+# Absolute public URL. Required to generate sitemap.xml and feed.xml.
+base_url = ""
+language = "en"
+
+[build]
+output = "dist"
+
+[theme]
+name = "blog"

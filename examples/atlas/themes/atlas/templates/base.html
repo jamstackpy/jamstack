@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="{{ site.language }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ site.title }}{% endblock %}</title>
+    {% if site.description %}<meta name="description" content="{{ site.description }}">{% endif %}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/skin.css">
+    <link rel="stylesheet" href="/atlas.css">
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="brand" href="/">
+        <img class="mark" src="/logo.svg" alt="" width="40" height="40">
+        <span class="logo">{{ site.title }}</span>
+      </a>
+      <p class="tagline">{{ site.description }}</p>
+      <nav class="nav">
+        <a href="/">Inicio</a>
+        <a href="/guias/">Guías</a>
+        <a href="/sobre/">Sobre</a>
+        <a href="/contacto/">Contacto</a>
+      </nav>
+    </header>
+    <main class="content">
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="colophon">
+      {% include "colophon.html" %}
+    </footer>
+  </body>
+</html>

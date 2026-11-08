@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} · {{ site.title }}{% endblock %}
+
+{% block content %}
+  <article class="post">
+    <header class="post-header">
+      <h1>{{ page.title }}</h1>
+      <p class="meta">
+        {% if page.date %}<time datetime="{{ page.date.isoformat() }}">{{ page.date.strftime("%d-%m-%Y") }}</time>{% endif %}
+        {% set words = page.content | striptags | wordcount %}
+        {% set minutes = [(words / 200) | round(0, "ceil") | int, 1] | max %}
+        <span class="reading-time">{{ minutes }} min de lectura</span>
+      </p>
+    </header>
+    <div class="prose">{{ page.content }}</div>
+    {% block post_footer %}{% endblock %}
+  </article>
+{% endblock %}

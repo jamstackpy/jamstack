@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="{{ site.language }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ site.title }}{% endblock %}</title>
+    <meta name="description" content="{{ site.description }}">
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">{{ site.title }}</a>
+      <nav class="topnav">
+        {% for label, href in site.extra.get("links", {}).items() %}
+          <a href="{{ href }}">{{ label }}</a>
+        {% endfor %}
+      </nav>
+    </header>
+    <div class="layout">
+      {% include "_sidebar.html" %}
+      <main class="content">
+        {% block content %}{% endblock %}
+        {% include "_pager.html" %}
+      </main>
+    </div>
+    <footer class="footer">
+      <p>{{ site.extra.get("footer_text", site.title) }}</p>
+      <p class="muted">{{ site.extra.get("footer_note", "") }}</p>
+    </footer>
+  </body>
+</html>

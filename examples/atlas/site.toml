@@ -1,0 +1,12 @@
+[site]
+title = "Atlas"
+description = "Un cuaderno de campo sobre construir sitios con Python."
+author = "Pedro Torcatt"
+base_url = "https://atlas.example.com"
+language = "es"
+
+[build]
+output = "dist"
+
+[theme]
+name = "atlas"

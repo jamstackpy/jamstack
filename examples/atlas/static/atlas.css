@@ -1,0 +1,23 @@
+/* Project override: this file replaces the theme's atlas.css. */
+
+:root {
+  --accent: #a0522d;
+  --rule: #e6dccd;
+  --background: #fdfbf7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent: #e0a370;
+    --rule: #3a3129;
+    --background: #17130f;
+  }
+}
+
+.guide-grid li {
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+
+.hero p.kicker {
+  color: var(--accent);
+}
