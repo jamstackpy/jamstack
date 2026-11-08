@@ -2,6 +2,7 @@ import re
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 THEME_NAME_PATTERN = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
 
@@ -24,6 +25,7 @@ class Config:
     language: str
     output: Path
     theme: str
+    extra: dict[str, Any]
 
 
 def load_config(root: Path) -> Config:
@@ -39,6 +41,10 @@ def load_config(root: Path) -> Config:
     site = data.get("site", {})
     build = data.get("build", {})
     theme = data.get("theme", {})
+    extra = data.get("extra", {})
+
+    if not isinstance(extra, dict):
+        raise ConfigError(f"{path}: [extra] must be a table")
 
     title = str(site.get("title", "")).strip()
     if not title:
@@ -57,4 +63,5 @@ def load_config(root: Path) -> Config:
         language=str(site.get("language", "en")),
         output=root / str(build.get("output", "dist")),
         theme=theme_name,
+        extra=extra,
     )
