@@ -68,6 +68,23 @@ The name must match `^[a-z0-9][a-z0-9_-]*$`. Jamstack resolves it from
 `<project>/themes/<name>/` first and falls back to the themes bundled with the
 package. See [Themes](themes.md).
 
+## `[extra]`
+
+Free-form table for values your theme needs. Jamstack does not interpret it:
+templates read it as `site.extra`.
+
+```toml
+[extra]
+footer_text = "Built with jamstack"
+
+[extra.social]
+github = "https://github.com/jamstackpy"
+```
+
+It must be a table; any other type stops the build with an error. Themes render
+with `StrictUndefined`, so read optional keys with `site.extra.get("...")`
+instead of `site.extra.key`.
+
 ## Behaviour worth knowing
 
 - Unknown keys are ignored, so a future version can add options without
