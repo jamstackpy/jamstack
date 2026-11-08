@@ -18,6 +18,7 @@ def test_loads_defaults(tmp_path: Path) -> None:
     assert config.output == tmp_path / "dist"
     assert config.theme == "minimal"
     assert config.language == "en"
+    assert config.extra == {}
 
 
 def test_missing_file(tmp_path: Path) -> None:
@@ -43,3 +44,19 @@ def test_custom_output(tmp_path: Path) -> None:
     write_config(tmp_path, '[site]\ntitle = "x"\n\n[build]\noutput = "public"\n')
 
     assert load_config(tmp_path).output == tmp_path / "public"
+
+
+def test_extra_table_is_exposed(tmp_path: Path) -> None:
+    write_config(
+        tmp_path,
+        '[site]\ntitle = "x"\n\n[extra.footer]\ntext = "Hello"\n',
+    )
+
+    assert load_config(tmp_path).extra["footer"]["text"] == "Hello"
+
+
+def test_extra_must_be_a_table(tmp_path: Path) -> None:
+    write_config(tmp_path, 'extra = "nope"\n\n[site]\ntitle = "x"\n')
+
+    with pytest.raises(ConfigError, match="extra"):
+        load_config(tmp_path)
