@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.2.0 (2026-11-07)
+
+### Features
+
+- Read a free-form `[extra]` table from `site.toml` as `site.extra` in
+  templates, so themes can expose site-wide values such as footer text,
+  links and sidebar order.
+
 ## 2.1.1 (2026-11-07)
 
 ### Bug fixes
