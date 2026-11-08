@@ -1,0 +1,21 @@
++++
+title = "Contacto"
+template = "page.html"
++++
+
+<p>
+  Puedes escribir a <a href="mailto:hola@atlas.example.com">hola@atlas.example.com</a>.
+  Este archivo es HTML con Jinja, no Markdown: se renderiza con el mismo contexto que
+  cualquier plantilla.
+</p>
+
+<h2>Guías publicadas</h2>
+
+<ul class="guide-list">
+{% for item in pages if item.template == "guide.html" %}
+  <li>
+    <a href="{{ item.url }}">{{ item.title }}</a>
+    {% if item.meta.get("summary") %}<span>{{ item.meta.get("summary") }}</span>{% endif %}
+  </li>
+{% endfor %}
+</ul>

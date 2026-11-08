@@ -89,3 +89,13 @@ jobs:
           python-version: "3.13"
       - run: pip install -e ".[dev]"
       - run: zensical build --strict
+
+  examples:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - run: pip install -e .
+      - run: for site in examples/*/; do (cd "$site" && jamstack build --clean); done

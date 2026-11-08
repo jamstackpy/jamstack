@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Atlas">
+  <circle cx="24" cy="24" r="22" fill="#0f5e59"/>
+  <path d="M14 34 L24 13 L34 34" fill="none" stroke="#fbf9f6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18.5 27.5 H29.5" stroke="#fbf9f6" stroke-width="3" stroke-linecap="round"/>
+</svg>

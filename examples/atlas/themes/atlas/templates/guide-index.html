@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} · {{ site.title }}{% endblock %}
+
+{% block content %}
+  <article class="post">
+    <header class="post-header">
+      <h1>{{ page.title }}</h1>
+    </header>
+    <div class="prose">{{ page.content }}</div>
+  </article>
+
+  <ul class="guide-grid">
+    {% for item in pages if item.template == "guide.html" %}
+      <li>
+        <a href="{{ item.url }}">{{ item.title }}</a>
+        {% if item.meta.get("summary") %}<p>{{ item.meta.get("summary") }}</p>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

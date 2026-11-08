@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if page.content %}
+    <div class="hero">{{ page.content }}</div>
+  {% endif %}
+
+  {% set posts = pages | selectattr("date") | list %}
+  <h2 class="section-title">Últimos posts</h2>
+  {% if posts %}
+    <ol class="post-list">
+      {% for item in posts[:3] %}
+        <li>
+          <a class="post-title" href="{{ item.url }}">{{ item.title }}</a>
+          <time datetime="{{ item.date.isoformat() }}">{{ item.date.strftime("%d-%m-%Y") }}</time>
+          {% if item.meta.get("summary") %}<p class="summary">{{ item.meta.get("summary") }}</p>{% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="empty">Todavía no hay posts.</p>
+  {% endif %}
+
+  <h2 class="section-title">Guías</h2>
+  <ul class="guide-list">
+    {% for item in pages if item.template == "guide.html" %}
+      <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
