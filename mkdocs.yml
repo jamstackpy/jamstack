@@ -51,6 +51,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Showcase: showcase.md
   - Tutorial: tutorial.md
   - Content: content.md
   - Configuration: configuration.md

@@ -133,6 +133,13 @@ Two themes ship with the package: `minimal` for small sites and `blog` for
 dated posts. A project can override a bundled theme by creating
 `themes/<name>/` inside the project; local themes take precedence.
 
+| Blog | Handbook |
+| --- | --- |
+| ![The blog theme: a centred masthead followed by dated posts with summaries](https://raw.githubusercontent.com/jamstackpy/jamstack/stable/docs/assets/showcase/blog.png) | ![The handbook theme: a documentation layout with a sidebar and previous and next links](https://raw.githubusercontent.com/jamstackpy/jamstack/stable/docs/assets/showcase/handbook.png) |
+
+See the [showcase](https://jamstackpy.github.io/showcase/) for all four example
+sites, each linked to its source under `examples/`.
+
 Themes are plain folders, so a custom theme is just a directory with a
 `theme.toml`, `templates/`, and optionally `static/` and `scaffold/`. See
 [docs/themes.md](docs/themes.md) for the full specification.
